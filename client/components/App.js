@@ -1,4 +1,4 @@
-angular.module('app', ['moment-picker'])
+angular.module('app', ['moment-picker', 'zxcvbn', 'ui.bootstrap'])
 .controller('AppCtrl', function($scope, Caps) {
 
   this.signedIn = false;
