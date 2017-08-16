@@ -5,8 +5,8 @@ const db = require('./db/config.js');
 const User = require('./models/user.js');
 const Capsule = require('./models/capsule.js');
 const util = require('./utility.js')
-const emailService = require('./email.js');
-const cronScan = require('./cronScan.js');
+// const emailService = require('./email.js');
+// const cronScan = require('./cronScan.js');
 
 const app = express();
 
@@ -25,6 +25,19 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/index.html'));
 });
 
+app.get('/capsule', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/capsuleView.html'));
+});
+
+app.get('/capsule/*', function(req, res) {
+  const requestedCap = req.params[0];
+  console.log('**********', requestedCap);
+  if (requestedCap === 'redirect') {
+    res.redirect('/');
+  } else {
+    res.sendFile(path.join(__dirname, '../client/capsuleView.html'));
+  }
+});
 
 app.post('/signup', (req, res) => {
   let newUser = User({
