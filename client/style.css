@@ -363,6 +363,11 @@ i {
 	float: center;
 }
 
+.model-body {
+  background-color: blue;
+  height: 900px;
+}
+
 
 .momentoInput {
   padding-left: 10px;
@@ -416,4 +421,8 @@ i {
   display: block;
   margin-top: 10px;
   margin-bottom: 10px;
+}
+
+.moment-picker {
+  z-index: 10000 !important;
 }
