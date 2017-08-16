@@ -192,13 +192,13 @@ app.put('/bury', (req, res) => {
         res.sendStatus(404);
       } else {
         capsule.buried = true;
-        capsule.unearthDate = util.parseDate(unearthDate);
-        let year = capsule.unearthDate.getFullYear();
-        let month = capsule.unearthDate.getMonth() + 1;
-        let day = capsule.unearthDate.getDate();
+        capsule.unearthDate = unearthDate;
+        // let year = capsule.unearthDate.getFullYear();
+        // let month = capsule.unearthDate.getMonth() + 1;
+        // let day = capsule.unearthDate.getDate();
         capsule.unearthMessage =
           `
-          You may open this capsule on ${month}/${day}/${year}
+          You may open this capsule on ${unearthDate}!!!
           `;
         capsule.save((err) => {
           if (err) {
