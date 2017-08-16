@@ -107,12 +107,7 @@ angular.module('app')
     }
   }
 
-  this.bury = (years, months, days, recipient) => {
-
-    var date = [0, 0, 0]
-    date[0] = Number(years) || 0;
-    date[1] = Number(months) || 0;
-    date[2] = Number(days) || 0;
+  this.bury = (date, recipient) => {
 
     var capObj;
     if ($scope.$ctrl.editingViewCapsule) {
