@@ -1,0 +1,24 @@
+{
+  "name": "greeny",
+  "description": "",
+  "main": "server/server.js",
+  "authors": [
+    "Timothy Roy <roy.tim@gmail.com>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/CradleAndGrave/LifetimeCapsule",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-zxcvbn": "^3.2.2"
+  },
+  "resolutions": {
+    "zxcvbn": "4.4.0"
+  }
+}
