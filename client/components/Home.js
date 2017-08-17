@@ -33,6 +33,7 @@ angular.module('app')
     this.editedCapsuleName = capsule.capsuleName;
     this.named = true;
     this.view = false;
+    this.profile = false;
   }
 
   this.toggleToCreate = () => {
@@ -47,6 +48,7 @@ angular.module('app')
           this.capsuleToEdit = {};
           this.named = false;
           this.view = false;
+          this.profile = false;
         }
       })
     } else {
@@ -65,6 +67,7 @@ angular.module('app')
             this.named = false;
             this.view = false;
             this.editingViewCapsule = false;
+            this.profile = false;
           }
         })
       }
@@ -73,7 +76,7 @@ angular.module('app')
 
 
   this.toggleToView = function(buried) {
-
+    this.profile = false;
     // check if the page is in "view" or "create"
     if(!this.view) {
 
