@@ -3,5 +3,6 @@ angular.module('app')
 })
 .component('header', {
   controller: 'HeaderCtrl',
-  templateUrl: '../templates/header.html'
+  templateUrl: '../templates/header.html',
+  bindings: {}
 })

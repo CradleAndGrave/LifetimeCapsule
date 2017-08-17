@@ -1,0 +1,8 @@
+<h1 class="text-center">{{capsule.capsuleName}}</h1>
+<pre>Created: {{capsule.createdAt}}</pre>
+<pre>Unearthed: {{capsule.unearthDate}}</pre>
+<div ng-repeat="moment in capsule.contents">
+  <h3 class="text-center">{{moment.name}}</h3>
+  <p>{{moment.input}}</p>
+  <hr />
+</div>
