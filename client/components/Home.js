@@ -1,6 +1,7 @@
 angular.module('app')
 .controller('HomeCtrl', function($scope, Caps) {
 
+  this.profile = false;
   this.view = true;
   this.editingViewCapsule = false;
   this.editedCapsuleName = '';
@@ -9,6 +10,10 @@ angular.module('app')
   this.currentCap = [];
   this.named = false;
 
+  this.toggleToProfile = () => {
+    this.profile = !this.profile;
+  }
+  
   this.handleFilter = function(event) {
     Caps.filterCaps(event.target.id, $scope.$ctrl.userId, (err, res) => {
       if (!err) {
