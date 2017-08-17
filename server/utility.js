@@ -1,3 +1,6 @@
+const SALT_FACTOR = 10;
+const bcrypt = require('bcrypt');
+
 exports.parseDate = ([years, months, days]) => {
   let today = new Date();
   let currentYear = today.getFullYear();
@@ -9,4 +12,8 @@ exports.parseDate = ([years, months, days]) => {
   let unearthDay = currentDay + days;
 
   return new Date([unearthYear, unearthMonth, unearthDay]);
+};
+
+exports.hashPassword = (password) => {
+
 };

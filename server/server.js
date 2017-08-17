@@ -1,3 +1,4 @@
+const Promise = require('bluebird');
 const path = require('path');
 const bodyParser = require('body-parser');
 const express = require('express');
@@ -7,10 +8,9 @@ const Capsule = require('./models/capsule.js');
 const util = require('./utility.js')
 const emailService = require('./email.js');
 const cronScan = require('./cronScan.js');
-
+const hashPassword = require('./models/hashPassword.js');
 const app = express();
 
-console.log(path.join(__dirname, '../bower_components'));
 app.use('/bower_components',  express.static( path.join(__dirname, '../bower_components')));
 
 app.use(bodyParser.urlencoded({extended: false}));
@@ -214,6 +214,10 @@ app.put('/bury', (req, res) => {
         });
       }
     });
+});
+
+app.put('/passwordchange', (req, res) => {
+  hashPassword(req.body.password, req.body.email, res);
 });
 
 app.listen(3000, () => {
