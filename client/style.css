@@ -426,3 +426,9 @@ i {
 .moment-picker {
   z-index: 10000 !important;
 }
+
+.passwordMeter {
+    width: 40%;
+    text-align:center;
+    margin: 0 auto;
+}

@@ -1,0 +1,15 @@
+<div id="nameCapsulePl0x">
+  <div> hello there {{$ctrl.email}} </div>
+  <div ng-show="$ctrl.success"> You have changed your password to: {{ $ctrl.newPassword }} </div>  
+  <div ng-hide="$ctrl.success">Change your password here.</div>
+  
+  <div class="signupInput">
+    <input ng-style="{'background-color' : (($ctrl.error == true) && 'rgb(249, 126, 126)') || '#DDDDDD', 'color' : (($ctrl.error == true) && 'rgb(164, 76, 76)') || '#222222'}" type="password" placeholder="Password" ng-model="$ctrl.newPassword" zxcvbn="passwordStrength"> </input>
+  </div>
+
+  <div ng-show="password.length" class="passwordMeter">
+    <zx-password-meter value="{{ passwordStrength.score }}" max="4"></zx-password-meter>
+  </div>
+  </br>
+  <button class="btn-primary" type="submit" ng-click="$ctrl.handlePasswordChange($ctrl.newPassword, $ctrl.email)">Submit New Password</button> <!-- btn --> <!-- signup -->
+</div>
