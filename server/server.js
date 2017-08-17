@@ -6,7 +6,6 @@ const db = require('./db/config.js');
 const User = require('./models/user.js');
 const Capsule = require('./models/capsule.js');
 const util = require('./utility.js')
-<<<<<<< HEAD
 
 const multipart = require('connect-multiparty')
 const multipartMiddleware = multipart()
@@ -18,8 +17,7 @@ var Grid = require('gridfs-stream');
 Grid.mongo = mongoose.mongo;
 var gfs = new Grid(mongoose.connection.db);
 
-=======
->>>>>>> Adds profile page and ability to update password
+
 const emailService = require('./email.js');
 const cronScan = require('./cronScan.js');
 const hashPassword = require('./models/hashPassword.js');
