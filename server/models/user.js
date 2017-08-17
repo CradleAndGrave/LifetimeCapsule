@@ -2,6 +2,7 @@ const bcrypt = require('bcrypt');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const SALT_FACTOR = 10;
+const Promise = require('bluebird');
 
 const UserSchema = new Schema({
   username: {
@@ -36,6 +37,7 @@ UserSchema.pre('save', function(next) {
     });
   });
 });
+
 
 UserSchema.methods.comparePassword = function(inputPassword, cb) {
   bcrypt.compare(inputPassword, this.password, function(err, matches) {
