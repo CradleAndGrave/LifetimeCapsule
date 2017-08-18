@@ -90,12 +90,27 @@ angular.module('app')
     });
 
   };
+
+  const retrieveCap = function(capsuleId, cb) {
+    $http({
+      url: `${STORE_URL}/capsules/${capsuleId}`,
+      method: 'GET'
+    })
+    .then(function(res) {
+      // gets all the capsules return matching the filer
+      cb(null, res.data);
+    })
+    .catch(function(err) {
+      cb(err);
+    });
+  };
   
   return {
     filterCaps: filterCaps,
     saveCap: saveCap,
     bury: bury,
     createCap: createCap,
-    deleteCap: deleteCap
+    deleteCap: deleteCap,
+    retrieveCap: retrieveCap
   };
 })

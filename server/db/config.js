@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
-const User = require('../models/user.js');
-const Capsule = require('../models/capsule.js');
+// const User = require('../models/user.js');
+// const Capsule = require('../models/capsule.js');
 const uri = 'mongodb://localhost/lifetimecapsule';
 
 mongoose.connect(uri);

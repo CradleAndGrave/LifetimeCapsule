@@ -427,6 +427,12 @@ i {
   z-index: 10000 !important;
 }
 
+.navbar .navbar-brand {
+  height:20px;
+  padding-top:0px; 
+  padding-bottom:0px;
+}
+
 .passwordMeter {
     width: 40%;
     text-align:center;
