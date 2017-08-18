@@ -1,18 +1,12 @@
 angular.module('app')
-.controller('ViewCtrl', function($scope, Caps, $http) {
+.controller('ViewCtrl', function($scope, Caps) {
 
   this.viewDetails = (cap) => {
   	// Work around for rendering dynamic content to modal by using jquery
   	$('.modalBodyBorder').on('click', function(event) {
   		$scope.chosenIndex = event.currentTarget.id;
-
-      $http.get(`http://127.0.0.1:3000/download/${cap.contents[$scope.chosenIndex].file[0]}`,     
-      {responseType:'arraybuffer'})
-        .success(function (response) {
-          console.log('Response from download', response)
-          var file = new Blob([(response)], {type: 'images/*'});
-          var fileURL = URL.createObjectURL(file);
-          $scope.content = fileURL;
+      Caps.fetchFiles(cap.contents[$scope.chosenIndex].file[0], (fileUrl) => {
+        $scope.content = fileUrl;
       }).then(() => { 
   	    $('#viewModal').html(
   	       `<div class="modal-dialog" id="viewModalDialog">

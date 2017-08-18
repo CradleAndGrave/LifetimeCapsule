@@ -122,6 +122,7 @@
         <div class="modal-body">
           <input id="momentoEditInput" type="text" maxlength="40" ng-model="momentoModalName" placeholder="Momento Name"/>
           <textarea id="inputBoxEdit" rows="4" cols="70" maxlength="188" ng-model="modalInput"> </textarea>
+
           <div ng-controller="CreateCtrl">
             <button type="file" ngf-select="$ctrl.uploadFiles($file, $invalidFiles)"
                     accept="image/*, video/*, application/*, audio/*" ngf-max-height="1000" ngf-max-size="16MB">
@@ -210,4 +211,5 @@
       </div>
     </div>    
   </div>
+
 </div>

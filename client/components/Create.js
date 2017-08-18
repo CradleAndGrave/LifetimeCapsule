@@ -1,5 +1,5 @@
 angular.module('app')
-.controller('CreateCtrl', function($scope, Caps) {
+.controller('CreateCtrl', function($scope, Caps, Upload, $timeout, $sce, $http) {
 
   this.capsuleId = $scope.$ctrl.capsuleId;
   this.capsuleToEdit = $scope.$ctrl.capsuleToEdit;
@@ -11,18 +11,6 @@ angular.module('app')
   $scope.recipient = '';
   $scope.content;
   $scope.fileName = undefined;
-
-  this.fetchFiles = () => {
-
-    $http.get(`http://127.0.0.1:3000/download/${$scope.$ctrl.capsuleId}`,     
-    {responseType:'arraybuffer'})
-      .success(function (response) {
-        console.log('Response from download', response)
-        var file = new Blob([(response)], {type: 'images/*'});
-        var fileURL = URL.createObjectURL(file);
-        $scope.content = fileURL;
-    });
-  }
 
   this.saveCapsule = (capObj, newMomento) => {
     Caps.saveCap(capObj, (err, res) => {
@@ -39,6 +27,7 @@ angular.module('app')
   }
 
   this.capsuleChange = (input, addMomento) => {
+    console.log($scope.$ctrl.capsuleId)
     $scope.showDetails = false;
     if ($scope.$ctrl.editingViewCapsule) {
       if(addMomento) {
@@ -100,7 +89,7 @@ angular.module('app')
         var capObj = {capsuleName: $scope.$ctrl.editedCapsuleName, capsuleId: $scope.$ctrl.capsuleId, capsuleContent: $scope.$ctrl.capsuleToEdit.contents};
         this.saveCapsule(capObj, false);
       } else {
-      	this.currentCap.splice(index, 1);
+        this.currentCap.splice(index, 1);
         var capObj = {capsuleName: $scope.$ctrl.capsuleName, capsuleId: this.capsuleId, capsuleContent: this.currentCap};
         this.saveCapsule(capObj, false);
       }
@@ -162,13 +151,8 @@ angular.module('app')
 
   this.momentoDetails = (momento) => {
     // Work around for rendering dynamic content to modal by using jquery
-    $http.get(`http://127.0.0.1:3000/download/${momento.file[0]}`,     
-    {responseType:'arraybuffer'})
-      .success(function (response) {
-        console.log('Response from download', response)
-        var file = new Blob([(response)], {type: 'images/*'});
-        var fileURL = URL.createObjectURL(file);
-        $scope.content = fileURL;
+    Caps.fetchFiles(momento.file[0], (fileUrl) => {
+      $scope.content = fileUrl;
     }).then(() => {    
       $('#viewMomentoModal').html(
         `<div class="modal-dialog" id="viewModalDialog">

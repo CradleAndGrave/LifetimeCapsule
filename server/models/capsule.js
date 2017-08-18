@@ -14,7 +14,8 @@ const CapsuleSchema = new Schema({
   unearthDate: Date,
   createdAt: Date,
   intendedRecipient: String,
-  unearthMessage: String
+  unearthMessage: String,
+  files: []
 });
 
 const Capsule = mongoose.model('Capsule', CapsuleSchema);
