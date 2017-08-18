@@ -165,6 +165,12 @@ angular.module('app')
     </div>`
     );
   }
+
+  $scope.uploadFiles = (file, invalidFiles) => {
+    console.log('FILE UPLOAD WORKED')
+    console.log(file);
+  }
+
 })
 .component('createPage', {
   controller: 'CreateCtrl',

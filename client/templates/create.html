@@ -8,7 +8,22 @@
     <div>
       <input id="momentoInput" type="text" ng-model="momentoName" maxlength="40" placeholder="Momento Name"/>
       <textarea id="inputBox" rows="4" cols="70" ng-model="input" placeholder="Add a message"> </textarea>
-    </div>
+
+      <div ng-controller="CreateCtrl">
+        <h4>Upload on file select</h4>
+        <button type="file" ngf-select="uploadFiles($file, $invalidFiles)"
+                accept="image/*" ngf-max-height="1000" ngf-max-size="1MB">
+            Select File</button>
+        <br><br>
+        File:
+        <div style="font:smaller">{{f.name}} {{errFile.name}} {{errFile.$error}} {{errFile.$errorParam}}
+            <span class="progress" ng-show="f.progress >= 0">
+                <div style="width:{{f.progress}}%"  
+                     ng-bind="f.progress + '%'"></div>
+            </span>
+        </div>     
+        {{errorMsg}}
+      </div>
 
 
     <button id="addToCap" type="button" ng-click="$ctrl.capsuleChange(input, true)">Add to Capsule</button>
