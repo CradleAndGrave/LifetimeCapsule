@@ -9,8 +9,12 @@ const util = require('./utility.js')
 const emailService = require('./email.js');
 const cronScan = require('./cronScan.js');
 const hashPassword = require('./models/hashPassword.js');
+const jwt = require('jwt-simple');
+const moment = require('moment');
 
 const app = express();
+
+app.set('jwtTokenSecret', 'youwillneverguess');
 
 app.use('/bower_components',  express.static( path.join(__dirname, '../bower_components')));
 
@@ -238,12 +242,16 @@ app.put('/bury', (req, res) => {
 
 app.put('/emailPassword', (req, res) => {
   let email = req.body.email;
-  let timedToken = 1;
+
+  let expires = moment().add('days', 1).valueOf();
+  let timedToken = jwt.encode({
+    exp: expires
+  }, app.get('jwtTokenSecret'));
   
-    let message = `Hi there, someone said you forgot your password.
+  let message = `Hi there, someone said you forgot your password.
 If that was you, click the link below to reset your password. If not, have a chilled out day!
 
-http://localhost:3000/emailPassword?email=${email}&password=${timedToken}`
+http://localhost:3000/forgotPassword?email=${email}&token=${timedToken}`
 
 emailService.sendEmail(email, message, ((err, info) => {
   if (err) {
@@ -252,8 +260,19 @@ emailService.sendEmail(email, message, ((err, info) => {
     res.send('hello');
   }
 }));
+});
 
+app.get('/forgotPassword', (req, res) => {
 
+  let token = req.query.token
+  let decoded = jwt.decode(token, app.get('jwtTokenSecret'))
+
+  if (decoded.exp <= Date.now()) {
+    res.end('Access token has expired', 400);
+  } else {
+    res.end('Access token has expired', 400);
+  }
+  
 });
 
 app.put('/passwordchange', (req, res) => {

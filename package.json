@@ -17,6 +17,8 @@
     "body-parser": "^1.17.2",
     "cron": "^1.2.1",
     "express-session": "^1.15.5",
+    "jwt-simple": "^0.5.1",
+    "moment": "^2.18.1",
     "mongoose": "^4.11.6",
     "nodemailer": "^4.0.1"
   },
