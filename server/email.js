@@ -14,7 +14,7 @@ let mailOptions = {
   subject: 'Lifetime Capsule Unearthed',
 };
 
-exports.sendEmail = (recipient, message) => {
+exports.sendEmail = (recipient, message, cb) => {
   let options = {
     from: mailOptions.from,
     subject: mailOptions.subject,
@@ -23,6 +23,8 @@ exports.sendEmail = (recipient, message) => {
   }
 
   transport.sendMail(options, (err, info) => {
+    if (cb) cb(err, info);
+    
     if (err) {
       console.log(`ERROR sending email: ${err}`);
     } else {

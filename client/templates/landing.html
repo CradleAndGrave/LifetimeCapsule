@@ -53,12 +53,50 @@
           </div>
 
           <p ng-show="$ctrl.error" class="warning">Please enter a valid email and password.</p> <!-- Warning -->
-      
           <button class="btn signup" type="submit">Sign In</button> <!-- btn  --> <!-- signup -->
+          <div>
+            <a href="#" data-toggle="modal" data-target="#changePasswordModal" ng-show="$ctrl.error" class="toggler" type="button">Forgot your password?</a> <!-- toggler -->
+          </div>
+
         </form>
 
       </div>
     </span>
     <a href="#" class="toggler" type="button" ng-click="$ctrl.toggle()">{{$ctrl.sisu}}</a> <!-- toggler -->
-  </span>
+    </span>
+
+    <!-- Modal for forgot password flow -->
+    <div id="changePasswordModal" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Forgot your password?</h4>
+          </div>
+
+          <div class="modal-body">
+            <p> No worries! We'll send you instructions to reset. </p>
+            <input id="emailpasswordinput" type="text" rows="2" maxlength="40" ng-model="emailPassword" placeholder="Confirm your email"/>
+          </div>
+          <div class="isa_success" ng-show="emailSuccess">
+            <i class="fa fa-check"></i>
+            Cool, we've sent you an email.</div>
+
+          <div class="isa_failure" ng-show="emailFailed">
+            <i class="fa fa-times-circle"></i>
+            Sorry, we can't work with that email.</div>
+          
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-default" ng-click="$ctrl.forgotPassword(emailPassword)">Fire Away</button>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+    
 </div>
