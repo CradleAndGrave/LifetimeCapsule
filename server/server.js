@@ -22,12 +22,30 @@ app.use((req, res, next) => {
   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
   next();
-})
+});
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/index.html'));
 });
 
+app.get('/capsule/:id', (req, res) => {
+  const requestedCapsule = req.params.id;
+  console.log(`Served: GET request for "/capsule/${requestedCapsule}"`);
+  res.sendFile(path.join(__dirname, '../client/capsuleView.html'));
+});
+
+app.get('/capsules/:id', function(req, res) {
+  const requestedCapsule = req.params.id;
+  Capsule.find({ _id: requestedCapsule }, (err, capsule) => {
+    if (err) {
+      console.error(`Error retrieving Capsule ${requestedCapsule}: ${err}`);
+      res.sendStatus(404);
+    } else {
+      console.log(`GET request for Capsule ${requestedCapsule} successful`);
+      res.send(capsule);
+    }
+  });
+});
 
 app.post('/signup', (req, res) => {
   let newUser = User({
