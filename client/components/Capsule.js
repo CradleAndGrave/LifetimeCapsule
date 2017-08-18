@@ -1,9 +1,19 @@
 angular.module('app')
 .controller('CapsuleCtrl', function($scope, $location, Caps) {
   this.capsuleId = $location.$$absUrl.split('/')[4];
-  $scope.capsule;
-  $scope.createDate;
-  $scope.unearthedDate;
+  $scope.capsule = {
+    capsuleName: 'Either you\'re lost or we\'ve shortcircuited.',
+    contents: [{
+      name: '',
+      input: `
+        <image style="height: 400px; width: 700px; margin: 0 auto; display: block" src="https://cdn.balibart.com/31039-large_default/capsule-corp-dragon-ball-z.jpg">`
+    }, {
+      name: 'Terribly sorry for the missed connection.',
+      input: ``
+    }]
+  };
+  $scope.createDate = '?';
+  $scope.unearthedDate = '?';
   Caps.retrieveCap(this.capsuleId, function(err, res) {
     if(err){
       console.log(err);
