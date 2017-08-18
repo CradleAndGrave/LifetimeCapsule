@@ -306,21 +306,24 @@ app.put('/bury', (req, res) => {
     });
 });
 
-app.get('/forgotPassword', (req, res) => {
-  console.log(req.query);
-  let username, email, password;
-  let message = `Hi there ${username}, someone said you forgot your password.
+app.put('/emailPassword', (req, res) => {
+  let email = req.body.email;
+  let timedToken = 1;
+  
+    let message = `Hi there, someone said you forgot your password.
 If that was you, click the link below to reset your password. If not, have a chilled out day!
 
-http://localhost:3000/emailPassword?email=${email}&password=${randomPassword}
-`
-  // emailService.sendEmail('roy.tim@gmail.com', 'hey there pardner');
-  res.send('hello');
-});
+http://localhost:3000/emailPassword?email=${email}&password=${timedToken}`
 
-app.get('/emailPassword', (req, res) => {
-  console.log(req.query);
-  res.send('hello');
+emailService.sendEmail(email, message, ((err, info) => {
+  if (err) {
+    res.sendStatus(404);
+  } else if (info) {
+    res.send('hello');
+  }
+}));
+
+
 });
 
 app.put('/passwordchange', (req, res) => {

@@ -1,16 +1,17 @@
 angular.module('app')
-  .controller('LandingCtrl', function($scope, Auth) {
+  .controller('LandingCtrl', function($scope, Auth, forgotPasswordEmail) {
 
-  this.username = '';
-  this.password = '';
-  this.butnClicked = true;
-  this.signup = true;
-  this.error = false;
-  this.sisu = 'Need to Sign Up?';
-
-  this.getStarted = () => {
-  	this.butnClicked = false;
-  }
+    this.emailFailed = false;
+    this.emailSuccess = false;
+    this.username = '';
+    this.password = '';
+    this.butnClicked = true;
+    this.signup = true;
+    this.error = false;
+    this.sisu = 'Need to Sign Up?';
+    this.getStarted = () => {
+      this.butnClicked = false;
+    }
 
   this.handleSignUp = (username, password, email) => {
 
@@ -59,6 +60,22 @@ angular.module('app')
   	  this.sisu = 'Have an account? Sign In!';
   	}
   }
+
+    this.forgotPassword = (email) => {
+      forgotPasswordEmail.forgotPassword({ email: email }, (res) => {
+        if (res) {
+          $scope.emailSuccess = true;
+        } else {
+          $scope.emailFailed = true;
+        }
+      })
+      
+      setTimeout(function() {
+        angular.element('#changePasswordModal').modal('hide')
+        $scope.emailSuccess = false;
+        $scope.emailFailed = false;
+      }, 2000)
+    }
 
 })
 .component('landingPage', {
