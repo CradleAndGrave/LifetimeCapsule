@@ -25,6 +25,7 @@ app.use((req, res, next) => {
 });
 
 app.get('/', (req, res) => {
+  console.log(req);
   res.sendFile(path.join(__dirname, '../client/index.html'));
 });
 
@@ -232,6 +233,23 @@ app.put('/bury', (req, res) => {
         });
       }
     });
+});
+
+app.get('/forgotPassword', (req, res) => {
+  console.log(req.query);
+  let username, email, password;
+  let message = `Hi there ${username}, someone said you forgot your password.
+If that was you, click the link below to reset your password. If not, have a chilled out day!
+
+http://localhost:3000/emailPassword?email=${email}&password=${randomPassword}
+`
+  // emailService.sendEmail('roy.tim@gmail.com', 'hey there pardner');
+  res.send('hello');
+});
+
+app.get('/emailPassword', (req, res) => {
+  console.log(req.query);
+  res.send('hello');
 });
 
 app.put('/passwordchange', (req, res) => {
