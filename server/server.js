@@ -10,6 +10,9 @@ const util = require('./utility.js')
 
 const app = express();
 
+console.log(path.join(__dirname, '../bower_components'));
+app.use('/bower_components',  express.static( path.join(__dirname, '../bower_components')));
+
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.use(express.static('client'));

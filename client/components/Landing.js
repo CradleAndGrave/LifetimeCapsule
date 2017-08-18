@@ -1,5 +1,5 @@
 angular.module('app')
-.controller('LandingCtrl', function($scope, Auth) {
+  .controller('LandingCtrl', function($scope, Auth) {
 
   this.username = '';
   this.password = '';
@@ -71,3 +71,42 @@ angular.module('app')
   },
   templateUrl: '../templates/landing.html'
 })
+
+angular.module('app')
+  .filter('capitalize', function() {
+    return function(input) {
+      return (!!input) ? input.charAt(0).toUpperCase() + input.substr(1).toLowerCase() : '';
+    }
+  });
+
+angular.module('app')
+  .directive('zxPasswordMeter', function() {
+    return {
+      scope: {
+        value: "@",
+        max: "@?"
+      },
+      templateUrl: "../templates/password-meter.html",
+      link: function(scope) {
+        scope.type = 'danger';
+        scope.max = (!scope.max) ? 100 : scope.max;
+
+        scope.$watch('value', function(newValue) {
+          var strengthPercent = newValue / scope.max;
+          
+           if (strengthPercent <= 0.25) {
+            scope.type = 'danger';
+          } else if (strengthPercent <= 0.50) {
+            scope.type = 'warning';
+          } else if (strengthPercent <= 0.75) {
+            scope.type = 'warning';
+          } else {
+            scope.type = 'success';
+            scope.text = 'Perfect';
+          }
+
+        });
+      }
+    }
+  });
+

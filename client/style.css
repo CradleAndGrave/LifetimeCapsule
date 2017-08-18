@@ -432,3 +432,9 @@ i {
   padding-top:0px; 
   padding-bottom:0px;
 }
+
+.passwordMeter {
+    width: 40%;
+    text-align:center;
+    margin: 0 auto;
+}
