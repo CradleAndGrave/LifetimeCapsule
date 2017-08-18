@@ -337,7 +337,7 @@ app.get('/forgotPassword', (req, res) => {
   if (decoded.exp <= Date.now()) {
     res.end('Access token has expired', 400);
   } else {
-    res.end('Access token has expired', 400);
+    res.send('on our way!')
   }
   
 });
