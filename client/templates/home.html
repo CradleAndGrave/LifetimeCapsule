@@ -11,10 +11,10 @@
     <div class="dropdown">
       <button class="fa fa-bars" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
       <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-        <button class="dropdown-item btn" ng-click="$ctrl.logOut()"> Logout </button>
-        <div class="dropdown-divider"></div>
         <a class="dropdown-item" href="#"></a>
         <button class="dropdown-item btn" ng-click="$ctrl.toggleToProfile()"> Profile </button>
+        <div class="dropdown-divider"></div>
+        <button class="dropdown-item btn logoutBtn" ng-click="$ctrl.logOut()"> Logout </button>
       </div>
     </div>
   <!--   <button class="logoutButton btn" ng-click="$ctrl.logOut()"> Logout </button> -->
@@ -23,7 +23,7 @@
   <!--   <button class="logoutButton btn" ng-click="$ctrl.toggleToProfile()"> Profile </button> -->
   </span>
   <!-- Dropdown -->
-  <div ng-show="$ctrl.view" class="btn-group" uib-dropdown is-open="status.isopen">
+  <div ng-show="$ctrl.view && !$ctrl.profile" class="btn-group" uib-dropdown is-open="status.isopen">
     <button id="single-button" type="button" class="btn btn-primary" uib-dropdown-toggle ng-disabled="disabled">
       Filter Capsules <i class="fa fa-caret-down" aria-hidden="true"></i>
     </button>
