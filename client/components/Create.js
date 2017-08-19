@@ -26,12 +26,11 @@ angular.module('app')
     });
   }
 
-  this.capsuleChange = (input, addMomento) => {
-    console.log($scope.$ctrl.capsuleId)
+  this.capsuleChange = (input, name, addMomento) => {
     $scope.showDetails = false;
     if ($scope.$ctrl.editingViewCapsule) {
       if(addMomento) {
-        this.capsuleToEdit.contents.unshift({input: input || '', name: $scope.momentoName || '', file: [$scope.fileId]});
+        this.capsuleToEdit.contents.unshift({input: input || '', name: name || '', file: [$scope.fileId]});
       }
       var capObj = {capsuleName: $scope.$ctrl.capsuleName, capsuleId: this.capsuleId, capsuleContent: this.capsuleToEdit.contents};
       this.saveCapsule(capObj, false);
@@ -42,6 +41,7 @@ angular.module('app')
       var capObj = {capsuleName: $scope.$ctrl.capsuleName, capsuleId: this.capsuleId, capsuleContent: this.currentCap};
       this.saveCapsule(capObj, true);
     }
+    $scope.momentoModalName = null;
   }
 
   this.setCapsuleName = (name) => {
@@ -66,7 +66,6 @@ angular.module('app')
   }
   
   this.editMomento = (input, momentoName) => {
-    console.log(this.capIndex, input, momentoName);
     $scope.showDetails = false;
     $scope.momentoName = momentoName;
     if ($scope.$ctrl.editingViewCapsule) {
@@ -113,7 +112,6 @@ angular.module('app')
   }
 
   this.bury = (date, recipient) => {
-
     var capObj;
     if ($scope.$ctrl.editingViewCapsule) {
 
