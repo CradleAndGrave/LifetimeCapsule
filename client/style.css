@@ -160,6 +160,14 @@ input { text-align:center; }
   /*margin: 5px;*/
 }
 
+.logoutBtn {
+  background-color: rgba(192, 57, 43, 1);
+}
+
+.logoutBtn:hover {
+  background-color: rgba(150, 40, 27, 1);
+}
+
 .filterBar {
   width: 100%;
   text-align: center;
