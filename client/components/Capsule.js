@@ -31,7 +31,7 @@ angular.module('app')
       $scope.capsule = res[0];
       $scope.createDate = moment($scope.capsule.createdAt).format('LL');
       $scope.unearthedDate = moment($scope.capsule.unearthDate).format('LL');
-      $scope.unearthCountdown = moment($scope.capsule.unearthDate).toNow();
+      $scope.unearthCountdown = moment($scope.capsule.unearthDate).fromNow();
     }
     // $scope.$apply();
   });

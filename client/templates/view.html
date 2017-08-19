@@ -1,14 +1,14 @@
 <div class="capsule">
 
   <div class="inProgress" >
-    <p ng-hide="$ctrl.cap.unearthed || $ctrl.cap.buried"> In Progress </p>
+    <p ng-hide="$ctrl.cap.unearthed || $ctrl.cap.buried" style="color: yellow"> In Progress </p>
   </div>
 
   <div class="inProgress" >
-    <a href="http://localhost:3000/capsule/{{$ctrl.cap._id}}"><p ng-show="$ctrl.cap.unearthed && !$ctrl.cap.buried"> Unearthed </p></a>
+    <a target="new" href="http://localhost:3000/capsule/{{$ctrl.cap._id}}"><p ng-show="$ctrl.cap.unearthed && !$ctrl.cap.buried" style="color: green"> Unearthed </p></a>
   </div>
   <div class="inProgress" >
-    <p ng-show="$ctrl.cap.buried && !ctrl.cap.unearthed">Buried</p></a>
+    <a target="new" href="http://localhost:3000/capsule/{{$ctrl.cap._id}}"><p ng-show="$ctrl.cap.buried && !ctrl.cap.unearthed" style="color: red">Buried</p></a>
   </div>
 
 <!--   <div class="capsuleBar">
