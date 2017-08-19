@@ -11,12 +11,18 @@
   "license": "ISC",
   "dependencies": {
     "angular": "^1.6.5",
+    "angular-file-upload": "^2.5.0",
     "angular-moment-picker": "^0.10.1",
     "bcrypt": "^1.0.2",
     "body-parser": "^1.17.2",
+    "connect-multiparty": "^2.0.0",
     "cron": "^1.2.1",
     "express-session": "^1.15.5",
+    "gridfs-stream": "^1.1.1",
+    "moment": "^2.18.1",
     "mongoose": "^4.11.6",
+    "mongoose-gridfs": "^0.2.0",
+    "ng-file-upload": "^12.2.13",
     "nodemailer": "^4.0.1"
   },
   "devDependencies": {

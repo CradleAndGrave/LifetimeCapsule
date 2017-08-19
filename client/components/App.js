@@ -1,5 +1,6 @@
-angular.module('app', ['moment-picker', 'ngSanitize', 'ngRoute', 'zxcvbn', 'ui.bootstrap'])
-.controller('AppCtrl', function($scope, $route, $routeParams, $location, Caps) {
+angular.module('app', ['moment-picker', 'ngSanitize', 'ngRoute', 'zxcvbn', 'ui.bootstrap', 'ngFileUpload'])
+.controller('AppCtrl', function($scope, Caps) {
+// .controller('AppCtrl', function($scope, $route, $routeParams, $location, Caps) {
 
   this.signedIn = false;
   this.userId = '';
