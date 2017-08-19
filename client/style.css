@@ -1,7 +1,6 @@
 * {
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-size: 20px;
-  background-color: #FFFFFF;
   color: #222222;
   border-color: grey;
   border-radius: 5px;
@@ -65,8 +64,8 @@ input { text-align:center; }
 }
 
 .btn {
-  background-color: rgba(225,225,225,0.55);
-  color: #222222;
+  background-color: #555555;
+  color: white;
   cursor: pointer;
   display: inline-block;
   font-size:18px;
@@ -79,6 +78,11 @@ input { text-align:center; }
   text-transform: uppercase;
   vertical-align: middle;
   width: 100%;
+}
+
+.btn:hover {
+  color: white !important;
+  background-color: #444444;
 }
 
 .loginHeader {
@@ -101,8 +105,12 @@ input { text-align:center; }
   width: 100%;
   font-size: 52px;
   text-align: center;
-  padding-bottom: 20px;
+  padding: 20px 0px 20px 0px;
   border-bottom: 1.5px solid rgba(128, 128, 128, 0.11);
+  background-color: #222;
+  color: white;
+  margin-top: 0;
+  border-radius: 0px;
 }
 
 .navbar {
@@ -110,18 +118,19 @@ input { text-align:center; }
   padding: 20px 10px 20px 10px;
   min-height: 50px;
   margin-bottom: 20px;
+  margin-left: 100px;
   border-top: 200px solid gray;
   border-bottom: 2px solid gray;
 }
 
 .create {
-  background-color: rgba(44, 62, 80, 1);
+  background-color: #222;
   color: white;
   margin-right: 1%;
 }
 
 .create:hover {
-  background-color: rgba(34, 49, 63, 1) !important;
+  background-color: #111 !important;
   color: white !important;
 }
 
@@ -130,18 +139,18 @@ input { text-align:center; }
 }
 
 #single-button {
-  background-color: black;
+  background-color: #555555;
   border: 1px solid transparent;
   position: relative !important;
   /*float: left;*/
 }
 
-.dropdown{
-
+#single-button:hover {
+  background-color: #444444;
 }
 
 .fa-caret-down {
-  background-color: black;
+  background-color: #555555;
   color: white;
 }
 
@@ -182,6 +191,8 @@ input { text-align:center; }
   display: inline-block;
   padding: 10px;
   margin: 10px;
+  margin-left: 30px;
+  background-color: white;
 }
 
 .capsuleBar {
@@ -190,6 +201,66 @@ input { text-align:center; }
   text-align: right;
 }
 
+#action-button {
+  background-color: white;
+  border: none;
+  font-size: 20px;
+  float: right;
+}
+
+.actionBtn {
+  background-color: white;
+  float: right;
+  display: inline-block;
+}
+
+.actionBtn ul {
+  width: 30px !important;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  display: none;
+  float: left;
+  min-width: 30px;
+  padding: 5px 0;
+  margin: 2px 0 0;
+  font-size: 14px;
+  text-align: left;
+  list-style: none;
+  background-color: #fff;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0,0,0,.15);
+  border-radius: 4px;
+  -webkit-box-shadow: 0 6px 12px rgba(0,0,0,.175);
+  box-shadow: 0 6px 12px rgba(0,0,0,.175);
+  right: 0;
+  left: auto;
+}
+
+.actionBtn .settings {
+  color: #555555;
+}
+
+.actionBtn i {
+  background-color: white;
+  cursor: pointer;
+}
+
+.dropdown-menu {
+  width: 30px !important;
+}
+
+.close {
+  width: 10px;
+}
+
+.close:hover {
+  background-color: white;
+  color: #444444 !important;
+}
 /*.inProgress {
   position: absolute;
   bottom: 20px;
@@ -291,6 +362,10 @@ i {
   position: absolute;
   bottom: 11px;
   text-align: center;
+  color: rgb(212, 176, 71);
+}
+
+.buriedLink {
   color: rgb(212, 176, 71);
 }
 
@@ -421,6 +496,11 @@ i {
   margin-top: 10px;
   margin-bottom: 10px;
   border-radius: 5px;
+  width: 700px;
+}
+
+#capsuleInput {
+  width: 300px;
 }
 
 #modalInputBox {
@@ -446,5 +526,12 @@ i {
 }
 
 .mediaFile {
-  width: 70%;
+  width: 60%;
+  border-radius: 0px;
+}
+
+#capLinkImage {
+  display: block !important;
+  margin: auto !important;
+  width: 40% !important;
 }
