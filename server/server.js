@@ -20,6 +20,9 @@ var gfs = new Grid(mongoose.connection.db);
 const emailService = require('./email.js');
 const cronScan = require('./cronScan.js');
 const hashPassword = require('./models/hashPassword.js');
+const jwt = require('jwt-simple');
+const moment = require('moment');
+
 const app = express();
 
 app.set('jwtTokenSecret', 'youwillneverguess');
