@@ -10,7 +10,8 @@ angular.module('app')
     }, {
       name: 'Terribly sorry for the missed connection.',
       input: ``
-    }]
+    }],
+    unearthed: true
   };
   $scope.createDate = null;
   $scope.unearthedDate = '?';
@@ -19,16 +20,19 @@ angular.module('app')
     if(err){
       console.log(err);
     } else {
+      console.log(res);
       for (let momento of res[0].contents) {
-        Caps.fetchFiles(momento.file[0], (fileUrl) => {
-          momento.fileUrl = fileUrl;
-          console.log(momento.fileUrl)
-        }).then( () => {
-          $scope.createDate = moment($scope.capsule.createdAt).format('LL');
-          $scope.unearthedDate = moment($scope.capsule.unearthDate).format('LL');
-          $scope.unearthCountdown = moment($scope.capsule.unearthDate).toNow();
-        })
+        if(momento.file){
+          Caps.fetchFiles(momento.file[0], (fileUrl) => {
+            momento.fileUrl = fileUrl;
+            console.log(momento.fileUrl)
+          })
+        }
       }
+      $scope.capsule = res[0];
+      $scope.createDate = moment($scope.capsule.createdAt).format('LL');
+      $scope.unearthedDate = moment($scope.capsule.unearthDate).format('LL');
+      $scope.unearthCountdown = moment($scope.capsule.unearthDate).toNow();
     }
     // $scope.$apply();
   });
