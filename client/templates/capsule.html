@@ -2,11 +2,8 @@
   <!-- <h1 class="text-center">{{capsule.capsuleName}}</h1> -->
   <h1 class="text-center" style="font-family: Gloria Hallelujah; font-size: 3em">{{capsule.capsuleName}}</h1>
   <!-- <hr /> -->
-  <div style="padding: 0px 10px; margin: 0px; display: block; font-family: monospace; white-space: pre; font-size: .95em;">Created: {{createDate}} <span style="float: right; font-family: monospace; white-space: pre; font-size: 1em;">Unearthed: {{unearthedDate}}</span></div>
+  <div ng-show="createDate" style="padding: 0px 10px; margin: 0px; display: block; font-family: monospace; white-space: pre; font-size: .95em;">Created: {{createDate}} <span style="float: right;">Unearthed: {{unearthedDate}}</span></div>
 </div>
-<!-- <div style="padding: 0px; margin: 0px; display: block; font-family: monospace; white-space: pre; font-size: .75em;">Created: {{capsule.createdAt}} <span style="float: right; font-family: monospace; white-space: pre; font-size: .98em;">Unearthed: {{capsule.unearthDate}}</span></div> -->
-<!--<pre>Created: {{capsule.createdAt}} <div style="float: right; font-family: monospace; white-space: pre; margin: .5em 0;">Unearthed: {{capsule.unearthDate}}</div></pre>-->
-<!-- <hr /> -->
 <moment ng-repeat="moment in capsule.contents" moment="moment">
   <h3 class="text-center" style="font-family: Sedgwick Ave; font-size: 3em">{{moment.name}}</h3>
   <p class="text-center" ng-bind-html="moment.input">{{moment.input}}</p>
