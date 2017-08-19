@@ -17,7 +17,6 @@ var Grid = require('gridfs-stream');
 Grid.mongo = mongoose.mongo;
 var gfs = new Grid(mongoose.connection.db);
 
-
 const emailService = require('./email.js');
 const cronScan = require('./cronScan.js');
 const hashPassword = require('./models/hashPassword.js');
