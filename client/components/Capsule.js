@@ -20,7 +20,6 @@ angular.module('app')
     if(err){
       console.log(err);
     } else {
-      console.log(res);
       for (let momento of res[0].contents) {
         if(momento.file){
           Caps.fetchFiles(momento.file[0], (fileUrl) => {
