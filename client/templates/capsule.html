@@ -2,9 +2,9 @@
   <!-- <h1 class="text-center">{{capsule.capsuleName}}</h1> -->
   <h1 class="text-center" style="font-family: Gloria Hallelujah; font-size: 3em">{{capsule.capsuleName}}</h1>
   <!-- <hr /> -->
-  <div ng-show="capsule.unearthed" style="padding: 0px 10px; margin: 0px; display: block; font-family: monospace; white-space: pre; font-size: .95em;">Created: {{createDate}} <span style="float: right;">Unearthed: {{unearthedDate}}</span></div>
+  <div ng-show="createDate" style="padding: 0px 10px; margin: 0px; display: block; font-family: monospace; white-space: pre; font-size: .95em;">Create Date: {{createDate}} <span style="float: right;">Unearth Date: {{unearthedDate}}</span></div>
 </div>
-<div ng-show="capsule.buried" class="text-center" style="font-family: Gloria Hallelujah; margin-top: 200px; font-size: 3em;">
+<div ng-show="capsule.buried && !capsule.unearthed" class="text-center" style="font-family: Gloria Hallelujah; margin-top: 200px; font-size: 3em;">
     <span style="color: red">Capsule still buried.</span>
     <br />
     Check back {{unearthCountdown}}
