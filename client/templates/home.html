@@ -22,21 +22,19 @@
   <!--   <br></br> -->
   <!--   <button class="logoutButton btn" ng-click="$ctrl.toggleToProfile()"> Profile </button> -->
   </span>
-
-  <span ng-show="$ctrl.view && !$ctrl.profile">
-    <div class="filterBar">
-      <div class="btn filterButton" id="all" ng-click="$ctrl.handleFilter($event)">
-        All
-      </div>
-      <div class="btn filterButton" id="buried" ng-click="$ctrl.handleFilter($event)">
-        Buried
-      </div>
-
-      <div class="btn filterButton" id="inProgress" ng-click="$ctrl.handleFilter($event)">
-        In Progress
-      </div>
-    </div>
-  </span>
+  <!-- Dropdown -->
+  <div ng-show="$ctrl.view" class="btn-group" uib-dropdown is-open="status.isopen">
+    <button id="single-button" type="button" class="btn btn-primary" uib-dropdown-toggle ng-disabled="disabled">
+      Filter Capsules <i class="fa fa-caret-down" aria-hidden="true"></i>
+    </button>
+    <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+      <li role="menuitem"><div class="filterButton" id="all" ng-click="$ctrl.handleFilter($event)">All</div></li>
+      <li role="menuitem"><div class="filterButton" id="buried" ng-click="$ctrl.handleFilter($event)">Buried</div></li>
+      <li role="menuitem"><div class="filterButton" id="inProgress" ng-click="$ctrl.handleFilter($event)">In Progress</div></li>
+    </ul>
+  </div>
+  <br/>
+  <br/>
 </nav>
 
 <span ng-show="$ctrl.view && !$ctrl.profile">
