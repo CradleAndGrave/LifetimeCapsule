@@ -1,7 +1,6 @@
 * {
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-size: 20px;
-  background-color: #FFFFFF;
   color: #222222;
   border-color: grey;
   border-radius: 5px;
@@ -65,10 +64,10 @@ input { text-align:center; }
 }
 
 .btn {
-  background-color: rgba(225,225,225,0.55);
-  color: #222222;
+  background-color: #555555;
+  color: white;
   cursor: pointer;
-  display: block;
+  display: inline-block;
   font-size:18px;
   font-weight: bold;
   line-height: 45px;
@@ -79,11 +78,11 @@ input { text-align:center; }
   text-transform: uppercase;
   vertical-align: middle;
   width: 100%;
+}
 
-  &:hover { 
-    text-decoration: none;
-    background-color: #CCCCCC; }
-
+.btn:hover {
+  color: white !important;
+  background-color: #444444;
 }
 
 .loginHeader {
@@ -106,8 +105,12 @@ input { text-align:center; }
   width: 100%;
   font-size: 52px;
   text-align: center;
-  padding-bottom: 20px;
+  padding: 20px 0px 20px 0px;
   border-bottom: 1.5px solid rgba(128, 128, 128, 0.11);
+  background-color: #222;
+  color: white;
+  margin-top: 0;
+  border-radius: 0px;
 }
 
 .navbar {
@@ -115,24 +118,61 @@ input { text-align:center; }
   padding: 20px 10px 20px 10px;
   min-height: 50px;
   margin-bottom: 20px;
+  margin-left: 100px;
   border-top: 200px solid gray;
   border-bottom: 2px solid gray;
 }
 
 .create {
-  margin-right: -11%;
-  /*background-color: rgba(103, 223, 205, 0.43);*/
+  background-color: #222;
+  color: white;
+  margin-right: 1%;
+}
+
+.create:hover {
+  background-color: #111 !important;
+  color: white !important;
 }
 
 .view {
-  margin-right: 6%;
-  /*background-color: rgba(103, 223, 205, 0.43);*/
+  margin-right: 1%;
+}
+
+#single-button {
+  background-color: #555555;
+  border: 1px solid transparent;
+  position: relative !important;
+  /*float: left;*/
+}
+
+#single-button:hover {
+  background-color: #444444;
+}
+
+.fa-caret-down {
+  background-color: #555555;
+  color: white;
 }
 
 #logoutButton, #deleteButn {
   text-align: center;
   float: right;
-  margin: 5px;
+  /*margin: 5px;*/
+}
+
+.logoutBtn, .profileBtn {
+  background-color: white;
+  color: #555555;
+}
+
+.profileBtn:hover {
+  background-color: white;
+  color: black !important;
+}
+
+.logoutBtn:hover {
+  background-color: white;
+  color: rgba(192, 57, 43,1) !important;
 }
 
 .filterBar {
@@ -141,16 +181,8 @@ input { text-align:center; }
 }
 
 .filterButton {
-  display: inline-block;
-  text-align: center;
+  margin-left: 20px;
   cursor: pointer;
-  margin-left: 10%;
-  font-size: 20px;
-  border-radius: 4px;
-  border: none;
-  width: 150px;
-  transition: all 0.5s;
-  margin-top: 18px;
 }
 
 .col-md-6 { text-align: center; }
@@ -174,6 +206,8 @@ input { text-align:center; }
   display: inline-block;
   padding: 10px;
   margin: 10px;
+  margin-left: 30px;
+  background-color: white;
 }
 
 .capsuleBar {
@@ -182,16 +216,75 @@ input { text-align:center; }
   text-align: right;
 }
 
+#action-button {
+  background-color: white;
+  border: none;
+  font-size: 20px;
+  float: right;
+}
+
+.actionBtn {
+  background-color: white;
+  float: right;
+  display: inline-block;
+}
+
+.actionBtn ul {
+  width: 30px !important;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  display: none;
+  float: left;
+  min-width: 30px;
+  padding: 5px 0;
+  margin: 2px 0 0;
+  font-size: 14px;
+  text-align: left;
+  list-style: none;
+  background-color: #fff;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0,0,0,.15);
+  border-radius: 4px;
+  -webkit-box-shadow: 0 6px 12px rgba(0,0,0,.175);
+  box-shadow: 0 6px 12px rgba(0,0,0,.175);
+  right: 0;
+  left: auto;
+}
+
+.actionBtn .settings {
+  color: #555555;
+}
+
+.actionBtn i {
+  background-color: white;
+  cursor: pointer;
+}
+
+.dropdown-menu {
+  width: 30px !important;
+}
+
+.close {
+  width: 10px;
+}
+
+.close:hover {
+  background-color: white;
+  color: #444444 !important;
+}
 /*.inProgress {
   position: absolute;
   bottom: 20px;
-	width: 250px;
-	height:  250px;
-	border: 1px solid;
-	padding: 10px;
-	margin: 10px;
-	border-radius: 5px;
->>>>>>> 8754339770cb1b0244c0c299b17a76954ed8417e
+  width: 250px;
+  height:  250px;
+  border: 1px solid;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 5px;
 
 }
 
@@ -201,10 +294,10 @@ input { text-align:center; }
 }
 
 .capsuleBar {
-	height: 10%;
-	width: 100%;
-	text-align: center;
-	margin-bottom: 10px;
+  height: 10%;
+  width: 100%;
+  text-align: center;
+  margin-bottom: 10px;
 
 }
 }*/
@@ -226,20 +319,20 @@ i {
 }
 
 .momentoBar {
-	height: 10%;
-	width: 100%;
-	text-align: right; 
+  height: 10%;
+  width: 100%;
+  text-align: right; 
   margin-bottom: 30px;
 }
 
 .iconOptions {
-	background-color: #F4F4F4;
-	border-radius: 3px;
+  background-color: #F4F4F4;
+  border-radius: 3px;
   text-align: right;
 }
 
 #capsuleNameMargin {
-	text-align: right;
+  text-align: right;
 }
 
 .break {
@@ -261,13 +354,13 @@ i {
 }
 
 .inProgressWindow {
-	margin-left: auto;
-	margin-right: auto;
-	width: 700px;
-	height: 500px;
-	border: 1px solid gray;
-	border-radius: 5px;
-	overflow: scroll;
+  margin-left: auto;
+  margin-right: auto;
+  width: 700px;
+  height: 500px;
+  border: 1px solid gray;
+  border-radius: 5px;
+  overflow: scroll;
 }
 
 #viewModalDialog {
@@ -286,16 +379,20 @@ i {
   color: rgb(212, 176, 71);
 }
 
+.buriedLink {
+  color: rgb(212, 176, 71);
+}
+
 .innerItem {
-	margin-left: auto;
-	margin-right: auto;
-	width: 550px;
-	height: 115px;
-	margin-top: 10px;
-	margin-bottom: 10px;
-	border: 1px solid gray;
-	border-radius: 4px;
-	text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  width: 550px;
+  height: 115px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border: 1px solid gray;
+  border-radius: 4px;
+  text-align: center;
 }
 
 #viewModalBody {
@@ -343,24 +440,24 @@ i {
 }
 
 #capHeader {
-	width: absolute;
-	text-align: center;
-	float: center;
+  width: absolute;
+  text-align: center;
+  float: center;
 }
 
 #viewModalContent {
-	width: 700px;
-	height: 500px;
-	text-align: center;
-	float: center;
+  width: 700px;
+  height: 500px;
+  text-align: center;
+  float: center;
 }
 
 #viewModalBody {
-	width: 100%;
-	height: 85%;
-	overflow: scroll;
-	text-align: center;
-	float: center;
+  width: 100%;
+  height: 85%;
+  overflow: scroll;
+  text-align: center;
+  float: center;
 }
 
 .model-body {
@@ -413,6 +510,11 @@ i {
   margin-top: 10px;
   margin-bottom: 10px;
   border-radius: 5px;
+  width: 700px;
+}
+
+#capsuleInput {
+  width: 300px;
 }
 
 #modalInputBox {
@@ -432,7 +534,7 @@ i {
 }
 
 .passwordMeter {
-    width: 40%;
+    width: 300px;
     text-align:center;
     margin: 0 auto;
 }
@@ -462,4 +564,14 @@ padding:12px;
     margin:10px 22px;
     font-size:2em;
     vertical-align:middle;
+
+.mediaFile {
+  width: 60%;
+  border-radius: 0px;
 }
+
+#capLinkImage {
+  display: block !important;
+  margin: auto !important;
+  width: 40% !important;
+  }

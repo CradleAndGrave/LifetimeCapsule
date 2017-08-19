@@ -1,23 +1,38 @@
 <div class="capsule">
 
   <div class="inProgress" >
-    <p ng-hide="$ctrl.cap.buried"> In Progress </p>
-  </div>
-  <div class="inProgress" >
-    <p ng-show="$ctrl.cap.buried"> Buried </p>
+    <p ng-hide="$ctrl.cap.unearthed || $ctrl.cap.buried" style="color: yellow"> In Progress </p>
   </div>
 
-  <div class="capsuleBar">
+  <div class="inProgress" >
+    <a target="new" href="http://localhost:3000/capsule/{{$ctrl.cap._id}}"><p ng-show="$ctrl.cap.unearthed && !$ctrl.cap.buried" style="color: green"> Unearthed </p></a>
+  </div>
+  <div class="inProgress" >
+    <a target="new" href="http://localhost:3000/capsule/{{$ctrl.cap._id}}"><p ng-show="$ctrl.cap.buried && !ctrl.cap.unearthed" style="color: red">Buried</p></a>
+  </div>
+
+<!--   <div class="capsuleBar">
     <button ng-hide="$ctrl.cap.buried" data-toggle="modal" data-target="#viewModal" ng-click="$ctrl.viewCapsule($ctrl.cap); $ctrl.viewDetails($ctrl.cap)"><i class="fa fa-eye fa-fw" aria-hidden="true"></i></button>
     <button ng-hide="$ctrl.cap.buried" ng-click="$ctrl.editCapsule($ctrl.cap)"><i class="fa fa-pencil fa-fw" aria-hidden="true"></i></button>
     <button ng-hide="$ctrl.cap.buried" type="button" ng-click="$ctrl.deleteCap($ctrl.cap._id, $ctrl.index)"><i class="fa fa-trash fa-fw" aria-hidden="true"></i></button>
+  </div> -->
+
+  <!-- Single button -->
+  <div ng-hide="$ctrl.cap.buried" class="btn-group actionBtn" uib-dropdown is-open="status.isopen">
+    <button id="action-button" type="button" class="btn btn-primary" uib-dropdown-toggle ng-disabled="disabled">
+      <i class="fa fa-ellipsis-v settings" aria-hidden="true"></i>
+    </button>
+    <ul uib-dropdown-menu role="menu" aria-labelledby="single-button">
+      <li role="menuitem"><div data-toggle="modal" data-target="#viewModal" ng-click="$ctrl.viewCapsule($ctrl.cap); $ctrl.viewDetails($ctrl.cap)"><i class="fa fa-eye fa-fw" aria-hidden="true"></i></div></li>
+      <li role="menuitem"><div ng-click="$ctrl.editCapsule($ctrl.cap)"><i class="fa fa-pencil fa-fw" aria-hidden="true"></i></div></li>
+      <li role="menuitem"><div ng-click="$ctrl.deleteCap($ctrl.cap._id, $ctrl.index)"><i class="fa fa-trash fa-fw" aria-hidden="true"></i></div></li>
+    </ul>
   </div>
+  <br/>
 
   <p class="viewCapName break">{{$ctrl.cap.capsuleName}}</p>
 
-  <p class="inProgress" ng-hide="$ctrl.cap.buried"> In Progress </p>
-
-  <p class="inProgress" ng-show="$ctrl.cap.buried"> Buried </p>
+  <!-- <p ng-show="$ctrl.cap.unearthed"> Unearthed </p> -->
 
   <p ng-show="$ctrl.cap.buried" >{{$ctrl.cap.unearthMessage}}</p>
 

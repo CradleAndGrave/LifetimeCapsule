@@ -2,11 +2,21 @@
   <!-- <h1 class="text-center">{{capsule.capsuleName}}</h1> -->
   <h1 class="text-center" style="font-family: Gloria Hallelujah; font-size: 3em">{{capsule.capsuleName}}</h1>
   <!-- <hr /> -->
-  <div ng-show="createDate" style="padding: 0px 10px; margin: 0px; display: block; font-family: monospace; white-space: pre; font-size: .95em;">Created: {{createDate}} <span style="float: right;">Unearthed: {{unearthedDate}}</span></div>
+  <div ng-show="createDate" style="padding: 0px 10px; margin: 0px; display: block; font-family: monospace; white-space: pre; font-size: .95em;">Create Date: {{createDate}} <span style="float: right;">Unearth Date: {{unearthedDate}}</span></div>
 </div>
-<moment ng-repeat="moment in capsule.contents" moment="moment">
+<div ng-show="capsule.buried && !capsule.unearthed" class="text-center" style="font-family: Gloria Hallelujah; margin-top: 200px; font-size: 3em;">
+    <span style="color: red">Capsule still buried.</span>
+    <br />
+    Check back {{unearthCountdown}}
+</div>
+<moment ng-show="capsule.unearthed" ng-repeat="moment in capsule.contents" moment="moment">
   <h3 class="text-center" style="font-family: Sedgwick Ave; font-size: 3em">{{moment.name}}</h3>
   <p class="text-center" ng-bind-html="moment.input">{{moment.input}}</p>
   <!-- <p class="text-center">{{moment.input}}</p> -->
+  <img ng-src="{{moment.fileUrl}}" style="
+    display: block !important;
+    margin: auto !important;
+    width: 30% !important;
+  ">
   <hr />
 </moment>

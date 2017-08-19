@@ -6,7 +6,6 @@ const db = require('./db/config.js');
 const User = require('./models/user.js');
 const Capsule = require('./models/capsule.js');
 const util = require('./utility.js')
-
 const multipart = require('connect-multiparty')
 const multipartMiddleware = multipart()
 const fs = require('fs')
@@ -295,7 +294,7 @@ app.put('/bury', (req, res) => {
         // let day = capsule.unearthDate.getDate();
         capsule.unearthMessage =
           `
-          You may open this capsule on ${unearthDate}!!!
+          You may open this capsule on ${unearthDate.split(' ')[0]}!!!
           `;
         capsule.save((err) => {
           if (err) {
