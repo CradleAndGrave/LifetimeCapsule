@@ -289,7 +289,7 @@ app.put('/bury', (req, res) => {
         // let day = capsule.unearthDate.getDate();
         capsule.unearthMessage =
           `
-          You may open this capsule on ${unearthDate}!!!
+          You may open this capsule on ${unearthDate.split(' ')[0]}!!!
           `;
         capsule.save((err) => {
           if (err) {
