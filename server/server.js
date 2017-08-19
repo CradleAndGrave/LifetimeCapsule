@@ -19,7 +19,12 @@ var gfs = new Grid(mongoose.connection.db);
 const emailService = require('./email.js');
 const cronScan = require('./cronScan.js');
 const hashPassword = require('./models/hashPassword.js');
+const jwt = require('jwt-simple');
+const moment = require('moment');
+
 const app = express();
+
+app.set('jwtTokenSecret', 'youwillneverguess');
 
 app.use('/bower_components',  express.static( path.join(__dirname, '../bower_components')));
 
@@ -304,21 +309,42 @@ app.put('/bury', (req, res) => {
     });
 });
 
-app.get('/forgotPassword', (req, res) => {
-  console.log(req.query);
-  let username, email, password;
-  let message = `Hi there ${username}, someone said you forgot your password.
+app.put('/emailPassword', (req, res) => {
+  let email = req.body.email;
+
+  let expires = moment().add('days', 1).valueOf();
+  let timedToken = jwt.encode({
+    exp: expires
+  }, app.get('jwtTokenSecret'));
+  
+  let message = `Hi there, someone said you forgot your password.
 If that was you, click the link below to reset your password. If not, have a chilled out day!
 
-http://localhost:3000/emailPassword?email=${email}&password=${randomPassword}
-`
-  // emailService.sendEmail('roy.tim@gmail.com', 'hey there pardner');
-  res.send('hello');
+http://localhost:3000/#/forgotPassword?email=${email}&token=${timedToken}`
+
+emailService.sendEmail(email, message, ((err, info) => {
+  if (err) {
+    res.sendStatus(404);
+  } else if (info) {
+    res.send('hello');
+  }
+}));
 });
 
-app.get('/emailPassword', (req, res) => {
-  console.log(req.query);
-  res.send('hello');
+app.put('/forgotPassword', (req, res) => {
+  let email = req.body.email
+  let password = req.body.password
+  let token = req.body.token
+  
+  let decoded = jwt.decode(token, app.get('jwtTokenSecret'))
+
+  if (decoded.exp <= Date.now()) {
+    res.end('Access token has expired', 400);
+  } else {
+    hashPassword(req.body.password, req.body.email, res);
+  }
+
+  
 });
 
 app.put('/passwordchange', (req, res) => {

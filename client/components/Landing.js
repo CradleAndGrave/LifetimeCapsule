@@ -1,16 +1,17 @@
 angular.module('app')
-  .controller('LandingCtrl', function($scope, Auth) {
+  .controller('LandingCtrl', function($scope, Auth, forgotPasswordEmail) {
 
-  this.username = '';
-  this.password = '';
-  this.butnClicked = true;
-  this.signup = true;
-  this.error = false;
-  this.sisu = 'Need to Sign Up?';
-
-  this.getStarted = () => {
-  	this.butnClicked = false;
-  }
+    this.emailFailed = false;
+    this.emailSuccess = false;
+    this.username = '';
+    this.password = '';
+    this.butnClicked = true;
+    this.signup = true;
+    this.error = false;
+    this.sisu = 'Need to Sign Up?';
+    this.getStarted = () => {
+      this.butnClicked = false;
+    }
 
   this.handleSignUp = (username, password, email) => {
 
@@ -60,6 +61,22 @@ angular.module('app')
   	}
   }
 
+    this.forgotPassword = (email) => {
+      forgotPasswordEmail.forgotPassword({ email: email }, (res) => {
+        if (res) {
+          $scope.emailSuccess = true;
+        } else {
+          $scope.emailFailed = true;
+        }
+      })
+      
+      setTimeout(function() {
+        angular.element('#changePasswordModal').modal('hide')
+        $scope.emailSuccess = false;
+        $scope.emailFailed = false;
+      }, 2000)
+    }
+
 })
 .component('landingPage', {
   controller: 'LandingCtrl',
@@ -71,45 +88,3 @@ angular.module('app')
   },
   templateUrl: '../templates/landing.html'
 })
-
-angular.module('app')
-  .filter('capitalize', function() {
-    return function(input) {
-      return (!!input) ? input.charAt(0).toUpperCase() + input.substr(1).toLowerCase() : '';
-    }
-  });
-
-angular.module('app')
-  .directive('zxPasswordMeter', function() {
-    return {
-      scope: {
-        value: "@",
-        max: "@?"
-      },
-      templateUrl: "../templates/password-meter.html",
-      link: function(scope) {
-        scope.type = 'danger';
-        scope.max = (!scope.max) ? 100 : scope.max;
-
-        scope.$watch('value', function(newValue) {
-          var strengthPercent = newValue / scope.max;
-          
-           if (strengthPercent <= 0.25) {
-             scope.type = 'danger';
-             scope.text = '';
-          } else if (strengthPercent <= 0.50) {
-            scope.type = 'warning';
-            scope.text = '';
-          } else if (strengthPercent <= 0.75) {
-            scope.type = 'warning';
-            scope.text = '';
-          } else {
-            scope.type = 'success';
-            scope.text = 'Perfect';
-          }
-
-        });
-      }
-    }
-  });
-

@@ -285,7 +285,6 @@ input { text-align:center; }
   padding: 10px;
   margin: 10px;
   border-radius: 5px;
->>>>>>> 8754339770cb1b0244c0c299b17a76954ed8417e
 
 }
 
@@ -540,6 +539,32 @@ i {
     margin: 0 auto;
 }
 
+.isa_info, .isa_success, .isa_warning, .isa_error {
+margin: 10px 0px;
+padding:12px;
+ 
+}
+.isa_info {
+    color: #00529B;
+    background-color: #BDE5F8;
+}
+.isa_success {
+    color: #4F8A10;
+    background-color: #DFF2BF;
+}
+.isa_warning {
+    color: #9F6000;
+    background-color: #FEEFB3;
+}
+.isa_error {
+    color: #D8000C;
+    background-color: #FFBABA;
+}
+.isa_info i, .isa_success i, .isa_warning i, .isa_error i {
+    margin:10px 22px;
+    font-size:2em;
+    vertical-align:middle;
+
 .mediaFile {
   width: 60%;
   border-radius: 0px;
@@ -549,4 +574,4 @@ i {
   display: block !important;
   margin: auto !important;
   width: 40% !important;
-}
+  }
