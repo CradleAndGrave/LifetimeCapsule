@@ -321,7 +321,7 @@ app.put('/emailPassword', (req, res) => {
   let message = `Hi there, someone said you forgot your password.
 If that was you, click the link below to reset your password. If not, have a chilled out day!
 
-http://localhost:3000/forgotPassword?email=${email}&token=${timedToken}`
+http://localhost:3000/#/forgotPassword?email=${email}&token=${timedToken}`
 
 emailService.sendEmail(email, message, ((err, info) => {
   if (err) {
@@ -332,16 +332,19 @@ emailService.sendEmail(email, message, ((err, info) => {
 }));
 });
 
-app.get('/forgotPassword', (req, res) => {
-
-  let token = req.query.token
+app.put('/forgotPassword', (req, res) => {
+  let email = req.body.email
+  let password = req.body.password
+  let token = req.body.token
+  
   let decoded = jwt.decode(token, app.get('jwtTokenSecret'))
 
   if (decoded.exp <= Date.now()) {
     res.end('Access token has expired', 400);
   } else {
-    res.send('on our way!')
+    hashPassword(req.body.password, req.body.email, res);
   }
+
   
 });
 

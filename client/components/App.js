@@ -35,4 +35,53 @@ angular.module('app', ['moment-picker', 'ngSanitize', 'ngRoute', 'zxcvbn', 'ui.b
     // template:'Will this display?',
     controller: 'SignupCtrl'
   })
+
+    .when('/forgotPassword', {
+      templateUrl: '/templates/forgotPassword.html',
+      // template:'Will this display?',
+      controller: 'ForgotPasswordCtrl'
+  })
+
 });
+
+angular.module('app')
+  .filter('capitalize', function() {
+    return function(input) {
+      return (!!input) ? input.charAt(0).toUpperCase() + input.substr(1).toLowerCase() : '';
+    }
+  });
+
+angular.module('app')
+  .directive('zxPasswordMeter', function() {
+    return {
+      scope: {
+        value: "@",
+        max: "@?"
+      },
+      templateUrl: "../templates/password-meter.html",
+      link: function(scope) {
+        scope.type = 'danger';
+        scope.max = (!scope.max) ? 100 : scope.max;
+
+        scope.$watch('value', function(newValue) {
+          var strengthPercent = newValue / scope.max;
+          
+           if (strengthPercent <= 0.25) {
+             scope.type = 'danger';
+             scope.text = '';
+          } else if (strengthPercent <= 0.50) {
+            scope.type = 'warning';
+            scope.text = '';
+          } else if (strengthPercent <= 0.75) {
+            scope.type = 'warning';
+            scope.text = '';
+          } else {
+            scope.type = 'success';
+            scope.text = 'Perfect';
+          }
+
+        });
+      }
+    }
+  });
+
