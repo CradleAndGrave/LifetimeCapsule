@@ -91,6 +91,11 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/index.html'));
 });
 
+app.get('/capsule', (req, res) => {
+  console.log(`Served: GET request for "/capsule"`);
+  res.sendFile(path.join(__dirname, '../client/capsuleView.html'));
+});
+
 app.get('/capsule/:id', (req, res) => {
   const requestedCapsule = req.params.id;
   console.log(`Served: GET request for "/capsule/${requestedCapsule}"`);

@@ -1,5 +1,6 @@
-angular.module('app', ['moment-picker', 'ngSanitize','zxcvbn', 'ui.bootstrap', 'ngFileUpload'])
+angular.module('app', ['moment-picker', 'ngSanitize', 'ngRoute', 'zxcvbn', 'ui.bootstrap', 'ngFileUpload'])
 .controller('AppCtrl', function($scope, Caps) {
+// .controller('AppCtrl', function($scope, $route, $routeParams, $location, Caps) {
 
   this.signedIn = false;
   this.userId = '';
@@ -27,3 +28,11 @@ angular.module('app', ['moment-picker', 'ngSanitize','zxcvbn', 'ui.bootstrap', '
   controller: 'AppCtrl',
   templateUrl: '../templates/app.html'
 })
+.config(function($routeProvider) {
+  $routeProvider
+  .when('/signup', {
+    templateUrl: '/templates/signup.htm',
+    // template:'Will this display?',
+    controller: 'SignupCtrl'
+  })
+});
