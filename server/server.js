@@ -1,3 +1,4 @@
+const Promise = require('bluebird');
 const path = require('path');
 const bodyParser = require('body-parser');
 const express = require('express');
@@ -5,8 +6,7 @@ const db = require('./db/config.js');
 const User = require('./models/user.js');
 const Capsule = require('./models/capsule.js');
 const util = require('./utility.js')
-// const emailService = require('./email.js');
-// const cronScan = require('./cronScan.js');
+
 const multipart = require('connect-multiparty')
 const multipartMiddleware = multipart()
 const fs = require('fs')
@@ -17,9 +17,11 @@ var Grid = require('gridfs-stream');
 Grid.mongo = mongoose.mongo;
 var gfs = new Grid(mongoose.connection.db);
 
+const emailService = require('./email.js');
+const cronScan = require('./cronScan.js');
+const hashPassword = require('./models/hashPassword.js');
 const app = express();
 
-console.log(path.join(__dirname, '../bower_components'));
 app.use('/bower_components',  express.static( path.join(__dirname, '../bower_components')));
 
 app.use(bodyParser.urlencoded({extended: false}));
@@ -88,6 +90,7 @@ app.get('/download/:fileId', function(req, res) {
 });
 
 app.get('/', (req, res) => {
+  console.log(req);
   res.sendFile(path.join(__dirname, '../client/index.html'));
 });
 
@@ -300,6 +303,27 @@ app.put('/bury', (req, res) => {
         });
       }
     });
+});
+
+app.get('/forgotPassword', (req, res) => {
+  console.log(req.query);
+  let username, email, password;
+  let message = `Hi there ${username}, someone said you forgot your password.
+If that was you, click the link below to reset your password. If not, have a chilled out day!
+
+http://localhost:3000/emailPassword?email=${email}&password=${randomPassword}
+`
+  // emailService.sendEmail('roy.tim@gmail.com', 'hey there pardner');
+  res.send('hello');
+});
+
+app.get('/emailPassword', (req, res) => {
+  console.log(req.query);
+  res.send('hello');
+});
+
+app.put('/passwordchange', (req, res) => {
+  hashPassword(req.body.password, req.body.email, res);
 });
 
 app.listen(3000, () => {

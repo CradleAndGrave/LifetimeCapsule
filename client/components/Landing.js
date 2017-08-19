@@ -95,11 +95,14 @@ angular.module('app')
           var strengthPercent = newValue / scope.max;
           
            if (strengthPercent <= 0.25) {
-            scope.type = 'danger';
+             scope.type = 'danger';
+             scope.text = '';
           } else if (strengthPercent <= 0.50) {
             scope.type = 'warning';
+            scope.text = '';
           } else if (strengthPercent <= 0.75) {
             scope.type = 'warning';
+            scope.text = '';
           } else {
             scope.type = 'success';
             scope.text = 'Perfect';

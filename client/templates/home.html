@@ -7,10 +7,23 @@
   <button class="btn create" ng-click="$ctrl.toggleToCreate()">Create A Capsule</button>
   <span id="logoutButton" >
     <h4 class="loginName">Welcome, {{$ctrl.email}}</h4>
-    <button class="logoutButton btn" ng-click="$ctrl.logOut()"> Logout </button>
+
+    <div class="dropdown">
+      <button class="fa fa-bars" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+      <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+        <button class="dropdown-item btn" ng-click="$ctrl.logOut()"> Logout </button>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" href="#"></a>
+        <button class="dropdown-item btn" ng-click="$ctrl.toggleToProfile()"> Profile </button>
+      </div>
+    </div>
+  <!--   <button class="logoutButton btn" ng-click="$ctrl.logOut()"> Logout </button> -->
+  <!--   </br> -->
+  <!--   <br></br> -->
+  <!--   <button class="logoutButton btn" ng-click="$ctrl.toggleToProfile()"> Profile </button> -->
   </span>
 
-  <span ng-show="$ctrl.view">
+  <span ng-show="$ctrl.view && !$ctrl.profile">
     <div class="filterBar">
       <div class="btn filterButton" id="all" ng-click="$ctrl.handleFilter($event)">
         All
@@ -26,14 +39,14 @@
   </span>
 </nav>
 
-<span ng-show="$ctrl.view">
-
+<span ng-show="$ctrl.view && !$ctrl.profile">
   <view-page class="col-md-3" ng-repeat="cap in $ctrl.capsData track by $index" cap="cap" index="$index" edit-capsule="$ctrl.editCapsule" delete-cap="$ctrl.deleteCap"> </view-page>
-
 </span>
 
-<span ng-hide="$ctrl.view">
-
+<span ng-hide="$ctrl.view || $ctrl.profile">
   <create-page view-toggle="$ctrl.toggleToView" named="$ctrl.named" capsule-id="$ctrl.capsuleId" capsule-to-edit="$ctrl.capsuleToEdit" editing-view-capsule="$ctrl.editingViewCapsule" view="$ctrl.view" edited-capsule-name="$ctrl.editedCapsuleName" current-cap="$ctrl.currentCap" capsule-name="$ctrl.capsuleName" delete-cap="$ctrl.deleteCap"> </create-page>
+</span>
 
+<span ng-show="$ctrl.profile">
+  <profile-page email="$ctrl.email" user-id="$ctrl.userId"> </profile-page>
 </span>

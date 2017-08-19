@@ -1,6 +1,7 @@
 angular.module('app')
 .controller('HomeCtrl', function($scope, Caps) {
 
+  this.profile = false;
   this.view = true;
   this.editingViewCapsule = false;
   this.editedCapsuleName = '';
@@ -9,6 +10,10 @@ angular.module('app')
   this.currentCap = [];
   this.named = false;
 
+  this.toggleToProfile = () => {
+    this.profile = !this.profile;
+  }
+  
   this.handleFilter = function(event) {
     Caps.filterCaps(event.target.id, $scope.$ctrl.userId, (err, res) => {
       if (!err) {
@@ -28,6 +33,7 @@ angular.module('app')
     this.editedCapsuleName = capsule.capsuleName;
     this.named = true;
     this.view = false;
+    this.profile = false;
   }
 
   this.toggleToCreate = () => {
@@ -42,6 +48,7 @@ angular.module('app')
           this.capsuleToEdit = {};
           this.named = false;
           this.view = false;
+          this.profile = false;
         }
       })
     } else {
@@ -60,6 +67,7 @@ angular.module('app')
             this.named = false;
             this.view = false;
             this.editingViewCapsule = false;
+            this.profile = false;
           }
         })
       }
@@ -68,7 +76,7 @@ angular.module('app')
 
 
   this.toggleToView = function(buried) {
-
+    this.profile = false;
     // check if the page is in "view" or "create"
     if(!this.view) {
 

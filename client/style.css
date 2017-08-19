@@ -431,30 +431,8 @@ i {
   z-index: 10000 !important;
 }
 
-.navbar .navbar-brand {
-  height:20px;
-  padding-top:0px; 
-  padding-bottom:0px;
-}
-
 .passwordMeter {
     width: 40%;
     text-align:center;
     margin: 0 auto;
-}
-
-.progress {
-    display: inline
-    width: 100px;
-    border-radius: 0px;
-}
-
-.progress div {
-    font-size: smaller;
-    background: orange;
-    width: 0;
-}
-
-.mediaFile {
-  width: 70%;
 }
