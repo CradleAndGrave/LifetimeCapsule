@@ -5,8 +5,17 @@ const db = require('./db/config.js');
 const User = require('./models/user.js');
 const Capsule = require('./models/capsule.js');
 const util = require('./utility.js')
-const emailService = require('./email.js');
-const cronScan = require('./cronScan.js');
+// const emailService = require('./email.js');
+// const cronScan = require('./cronScan.js');
+const multipart = require('connect-multiparty')
+const multipartMiddleware = multipart()
+const fs = require('fs')
+var mongoose = require('mongoose');
+var _ = require('lodash');
+
+var Grid = require('gridfs-stream');
+Grid.mongo = mongoose.mongo;
+var gfs = new Grid(mongoose.connection.db);
 
 const app = express();
 
@@ -22,6 +31,60 @@ app.use((req, res, next) => {
   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
   next();
+});
+
+app.post('/upload/:capId', multipartMiddleware, (req, res) => {
+  capId = req.params.capId
+  console.log(req.files.file.name)
+  var writestream = gfs.createWriteStream({
+    filename: req.files.file.name,
+    metadata: {
+      capsuleId: capId,
+      filename: req.files.file.name
+    }
+  });
+
+  fs.createReadStream(req.files.file.path).pipe(writestream);
+
+  writestream.on('close', function(file) {
+    Capsule.findById(req.params.capId, function(err, capsule) {
+      // handle error
+      console.log('contents', capsule.contents)
+      capsule.files.push(mongoose.Types.ObjectId(file._id));
+      capsule.save(function(err, updatedCapsule) {
+        // handle error
+        if (err) {
+          console.log(err)
+        }
+        return res.status(200).json(file._id)
+      })
+    })
+
+    fs.unlink(req.files.file.path, function(err) {
+      // handle error
+      console.log('success!')
+    });
+  });
+
+  // res.json({fileId: file._id})
+});
+
+app.get('/download/:fileId', function(req, res) {
+  gfs.exist({ _id: req.params.fileId }, function(err, found) {
+      if (err) {
+        handleError(err); 
+        return;
+      }
+
+      if (!found) {
+        res.send('Error on the database looking for the file.')
+        return;
+      }
+      // We only get here if the file actually exists, so pipe it to the response
+      var readstream = gfs.createReadStream({ _id: req.params.fileId })
+      console.log('RS', readstream)
+      readstream.pipe(res);
+  });
 });
 
 app.get('/', (req, res) => {

@@ -7,11 +7,9 @@
   <span ng-show="$ctrl.named">
     <div>
       <input id="momentoInput" type="text" ng-model="momentoName" maxlength="40" placeholder="Momento Name"/>
-      <textarea id="inputBox" rows="4" cols="70" ng-model="input" placeholder="Add a message"> </textarea>
+      <textarea data-toggle="modal" data-target="#addMomentoModal" id="inputBox" rows="4" cols="70" ng-model="input" placeholder="Add a message"> </textarea>
+      <!-- <button id="addToCap" type="button" ng-click="$ctrl.capsuleChange(input, true)">Add to Capsule</button> -->
     </div>
-
-
-    <button id="addToCap" type="button" ng-click="$ctrl.capsuleChange(input, true)">Add to Capsule</button>
   </span>
 
   <div id="nameCapsulePl0x" ng-hide="$ctrl.named">
@@ -124,6 +122,20 @@
         <div class="modal-body">
           <input id="momentoEditInput" type="text" maxlength="40" ng-model="momentoModalName" placeholder="Momento Name"/>
           <textarea id="inputBoxEdit" rows="4" cols="70" maxlength="188" ng-model="modalInput"> </textarea>
+
+          <div ng-controller="CreateCtrl">
+            <button type="file" ngf-select="$ctrl.uploadFiles($file, $invalidFiles)"
+                    accept="image/*, video/*, application/*, audio/*" ngf-max-height="1000" ngf-max-size="16MB">
+                Photo</button>
+            <br><br>
+            <div ng-show="showDetails" style="font:smaller">{{f.name}} {{errFile.name}} {{errFile.$error}} {{errFile.$errorParam}}
+                <span class="progress" ng-show="showDetails">
+                    <div ng-show="showDetails" style="width:{{f.progress}}%"  
+                         ng-bind="f.progress"></div>
+                </span>
+            </div>     
+            {{errorMsg}}
+          </div>
         </div>
 
         <div class="modal-footer">
@@ -162,6 +174,42 @@
 
   <div id="viewMomentoModal" class="modal fade" role="dialog">
 
+  </div>
+
+  <div id="addMomentoModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Add a momento!</h4>
+        </div>
+
+        <div class="modal-body">
+          <textarea id="modalInputBox" rows="4" cols="70" ng-model="input" placeholder="Write a message"> </textarea>
+
+          <div ng-controller="CreateCtrl">
+            <button type="file" ngf-select="$ctrl.uploadFiles($file, $invalidFiles)"
+                    accept="image/*, video/*, application/*, audio/*" ngf-max-height="1000" ngf-max-size="16MB" ng-model="$file">
+                Photo</button>
+            <br><br>
+            <div ng-show="showDetails" style="font:smaller">{{f.name}} {{errFile.name}} {{errFile.$error}} {{errFile.$errorParam}}
+                <span class="progress" ng-show="showDetails">
+                    <div ng-show="showDetails" style="width:{{f.progress}}%"  
+                         ng-bind="f.progress"></div>
+                </span>
+            </div>     
+            {{errorMsg}}
+          </div>          
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="$ctrl.capsuleChange(input, true)">Submit</button>
+        </div>
+
+      </div>
+    </div>    
   </div>
 
 </div>

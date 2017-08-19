@@ -1,5 +1,5 @@
 angular.module('app')
-.controller('CreateCtrl', function($scope, Caps) {
+.controller('CreateCtrl', function($scope, Caps, Upload, $timeout, $sce, $http) {
 
   this.capsuleId = $scope.$ctrl.capsuleId;
   this.capsuleToEdit = $scope.$ctrl.capsuleToEdit;
@@ -9,6 +9,8 @@ angular.module('app')
   $scope.input = '';
   $scope.date = '';
   $scope.recipient = '';
+  $scope.content;
+  $scope.fileName = undefined;
 
   this.saveCapsule = (capObj, newMomento) => {
     Caps.saveCap(capObj, (err, res) => {
@@ -25,15 +27,17 @@ angular.module('app')
   }
 
   this.capsuleChange = (input, addMomento) => {
+    console.log($scope.$ctrl.capsuleId)
+    $scope.showDetails = false;
     if ($scope.$ctrl.editingViewCapsule) {
       if(addMomento) {
-        this.capsuleToEdit.contents.unshift({input: input, name: $scope.momentoName});
+        this.capsuleToEdit.contents.unshift({input: input || '', name: $scope.momentoName || '', file: [$scope.fileId]});
       }
       var capObj = {capsuleName: $scope.$ctrl.capsuleName, capsuleId: this.capsuleId, capsuleContent: this.capsuleToEdit.contents};
       this.saveCapsule(capObj, false);
     } else {
       if(addMomento) {
-        this.currentCap.unshift({input: input, name: $scope.momentoName});
+        this.currentCap.unshift({input: input || '', name: $scope.momentoName || '', file: [$scope.fileId]});
       }
       var capObj = {capsuleName: $scope.$ctrl.capsuleName, capsuleId: this.capsuleId, capsuleContent: this.currentCap};
       this.saveCapsule(capObj, true);
@@ -63,13 +67,14 @@ angular.module('app')
   
   this.editMomento = (input, momentoName) => {
     console.log(this.capIndex, input, momentoName);
+    $scope.showDetails = false;
     $scope.momentoName = momentoName;
     if ($scope.$ctrl.editingViewCapsule) {
-      $scope.$ctrl.capsuleToEdit.contents[this.capIndex] = {input: input, name: $scope.momentoName};
+      $scope.$ctrl.capsuleToEdit.contents[this.capIndex] = {input: input || '', name: $scope.momentoName || '', file: [$scope.fileId]};
       var capObj = {capsuleName: $scope.$ctrl.editedCapsuleName, capsuleId: $scope.$ctrl.capsuleId, capsuleContent: $scope.$ctrl.capsuleToEdit.contents};
       this.saveCapsule(capObj, false);
     } else {
-      this.currentCap[this.capIndex] = {input: input, name: $scope.momentoName};
+      this.currentCap[this.capIndex] = {input: input || '', name: $scope.momentoName || '', file: [$scope.fileId]};
       var capObj = {capsuleName: $scope.$ctrl.capsuleName, capsuleId: this.capsuleId, capsuleContent: this.currentCap};
       this.saveCapsule(capObj, false);
     }
@@ -84,7 +89,7 @@ angular.module('app')
         var capObj = {capsuleName: $scope.$ctrl.editedCapsuleName, capsuleId: $scope.$ctrl.capsuleId, capsuleContent: $scope.$ctrl.capsuleToEdit.contents};
         this.saveCapsule(capObj, false);
       } else {
-      	this.currentCap.splice(index, 1);
+        this.currentCap.splice(index, 1);
         var capObj = {capsuleName: $scope.$ctrl.capsuleName, capsuleId: this.capsuleId, capsuleContent: this.currentCap};
         this.saveCapsule(capObj, false);
       }
@@ -146,25 +151,66 @@ angular.module('app')
 
   this.momentoDetails = (momento) => {
     // Work around for rendering dynamic content to modal by using jquery
-    $('#viewMomentoModal').html(
-      `<div class="modal-dialog" id="viewModalDialog">
-      <div class="modal-content" id="viewModalContent"> 
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title" id="momentoDetails">${$scope.$ctrl.capsuleName}</h4>
-        </div>
-        <div class="viewModal-body" id="viewModalBody">
-          <div id="momentoDetails"> 
+    Caps.fetchFiles(momento.file[0], (fileUrl) => {
+      $scope.content = fileUrl;
+    }).then(() => {    
+      $('#viewMomentoModal').html(
+        `<div class="modal-dialog" id="viewModalDialog">
+        <div class="modal-content" id="viewModalContent"> 
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title" id="momentoDetails">${$scope.$ctrl.capsuleName}</h4>
+          </div>
+          <div class="viewModal-body" id="viewModalBody">
+            <div id="momentoDetails"> 
 
-            <h4>${momento.name}</h4>
-            <p id="viewDetails">${momento.input}</p>
-            
+              <h4>${momento.name}</h4>
+              <p id="viewDetails">${momento.input}</p>
+              <img class="mediaFile" src="${$scope.content}" />
+            </div>
           </div>
         </div>
-      </div>
-    </div>`
-    );
+      </div>`
+      );
+    })
+
   }
+
+  this.uploadFiles = function(file, errFiles) {
+      $scope.f = file;
+      $scope.errFile = errFiles && errFiles[0];
+      $scope.showDetails = true;
+      if (file) {
+
+          file.upload = Upload.upload({
+            url: `http://127.0.0.1:3000/upload/${$scope.$ctrl.capsuleId}`,
+            method: 'POST',
+            file: file
+          }).then((response)=> {
+            console.log(response)
+            $scope.fileId = response.data
+          })
+
+          file.upload = Upload.upload({
+              url: 'https://angular-file-upload-cors-srv.appspot.com/upload',
+              data: {file: file}
+          });
+
+          file.upload.then(function (response) {
+              $timeout(function () {
+                  console.log('res', response)
+                  file.result = response.data;
+              });
+          }, function (response) {
+              if (response.status > 0)
+                  $scope.errorMsg = response.status + ': ' + response.data;
+          }, function (evt) {
+              file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+              file.progress = `${file.progress}%`
+          });
+      }   
+  }
+
 })
 .component('createPage', {
   controller: 'CreateCtrl',

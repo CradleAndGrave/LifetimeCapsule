@@ -1,4 +1,4 @@
-angular.module('app', ['moment-picker', 'zxcvbn', 'ui.bootstrap'])
+angular.module('app', ['moment-picker', 'ngSanitize','zxcvbn', 'ui.bootstrap', 'ngFileUpload'])
 .controller('AppCtrl', function($scope, Caps) {
 
   this.signedIn = false;

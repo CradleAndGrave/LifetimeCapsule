@@ -90,12 +90,41 @@ angular.module('app')
     });
 
   };
+
+  const retrieveCap = function(capsuleId, cb) {
+    $http({
+      url: `${STORE_URL}/capsules/${capsuleId}`,
+      method: 'GET'
+    })
+    .then(function(res) {
+      // gets all the capsules return matching the filer
+      cb(null, res.data);
+    })
+    .catch(function(err) {
+      cb(err);
+    });
+  };
+
+  const fetchFiles = (fileId, cb) => {
+
+    return $http.get(`http://127.0.0.1:3000/download/${fileId}`,     
+    {responseType:'arraybuffer'})
+      .success(function (response) {
+        console.log('Response from download', response)
+        var file = new Blob([(response)], {type: 'images/*'});
+        var fileURL = URL.createObjectURL(file);
+        cb(fileURL)
+        // $scope.content = fileURL;
+    });
+  }
   
   return {
     filterCaps: filterCaps,
     saveCap: saveCap,
     bury: bury,
     createCap: createCap,
-    deleteCap: deleteCap
+    deleteCap: deleteCap,
+    retrieveCap: retrieveCap,
+    fetchFiles: fetchFiles
   };
 })
