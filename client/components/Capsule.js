@@ -14,6 +14,7 @@ angular.module('app')
   };
   $scope.createDate = null;
   $scope.unearthedDate = '?';
+  $scope.unearthCountdown = '';
   Caps.retrieveCap(this.capsuleId, function(err, res) {
     if(err){
       console.log(err);
@@ -23,11 +24,9 @@ angular.module('app')
           momento.fileUrl = fileUrl;
           console.log(momento.fileUrl)
         }).then( () => {
-        $scope.capsule = res[0];
-        let createDate = new Date($scope.capsule.createdAt.substring(0,10));
-        let unearthedDate = new Date($scope.capsule.unearthDate.substring(0,10));
-        $scope.createDate = createDate.toDateString();
-        $scope.unearthedDate = unearthedDate.toDateString();
+          $scope.createDate = moment($scope.capsule.createdAt).format('LL');
+          $scope.unearthedDate = moment($scope.capsule.unearthDate).format('LL');
+          $scope.unearthCountdown = moment($scope.capsule.unearthDate).toNow();
         })
       }
     }
