@@ -6,7 +6,6 @@ const db = require('./db/config.js');
 const User = require('./models/user.js');
 const Capsule = require('./models/capsule.js');
 const util = require('./utility.js')
-
 const multipart = require('connect-multiparty')
 const multipartMiddleware = multipart()
 const fs = require('fs')
